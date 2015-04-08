@@ -1,0 +1,24 @@
+{
+  "name": "MemLogger",
+  "version": "1.0.0",
+  "description": "simple module that adds memwatch leak and stats functions to a project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/icecubed/MemLogger.git"
+  },
+  "author": "Joel Alenchery",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/icecubed/MemLogger/issues"
+  },
+  "homepage": "https://github.com/icecubed/MemLogger",
+  "dependencies": {
+    "lodash": "^3.6.0",
+    "memwatch": "^0.2.2",
+    "winston": "^0.9.0"
+  }
+}
