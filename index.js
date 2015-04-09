@@ -6,7 +6,7 @@ var allocations = {};
 var snoitacolla = {};
 
 function updateHeapDiff(diff, logger) {
-  logger.info(' >>>>>>>>>> heap diff', diff);
+  logger(' >>>>>>>>>> heap diff', diff);
   var oldValue;
   var newValue;
   diff.change.details.forEach(function(data) {
@@ -76,7 +76,7 @@ MemLogger.prototype.init = function() {
   memwatch.on('leak', function(info) {
     self._options.logger.error(' >>>>>>>>>> MEMORY LEAK DETECTED', info);
     memLeakLogger.error(info);
-    updateHeapDiff(self.hd.end());
+    updateHeapDiff(self.hd.end(), self._options.logger.error);
     self.hd = new memwatch.HeapDiff();
     self.lastHD = Date.now();
     self.tha = topHeapAllocations(10);
@@ -99,7 +99,7 @@ MemLogger.prototype.init = function() {
         memStatsLogger.info(' >>>>>>>>>> post incremental gc sample', stats);
       } else {
         if ((Date.now() - self.lastHD) > self._options.hdInterval) {
-          updateHeapDiff(self.hd.end());
+          updateHeapDiff(self.hd.end(), self._options.logger.info);
           self.hd = new memwatch.HeapDiff();
           self.lastHD = Date.now();
           self.tha = topHeapAllocations(10);
