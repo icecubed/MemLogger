@@ -5,7 +5,8 @@ var _ = require('lodash');
 var allocations = {};
 var snoitacolla = {};
 
-function updateHeapDiff(diff) {
+function updateHeapDiff(diff, logger) {
+  logger.info(' >>>>>>>>>> heap diff', diff);
   var oldValue;
   var newValue;
   diff.change.details.forEach(function(data) {
@@ -40,7 +41,7 @@ function topHeapAllocations(howMany) {
   return result;
 }
 
-function MemLogger(options) {
+var MemLogger = function MemLogger(options) {
   var _options = {};
   if (!options.componentName) {
     throw new Error('MemLogger should have a componentName option');
@@ -51,13 +52,13 @@ function MemLogger(options) {
     ]
   });
   _options.logfileRoot = '/var/log/node/';
-  _options.logfilename = {
-    'leak': _options.logfileRoot + options.componentName + '-mLeak.log',
-    'stats': _options.logfileRoot + options.componentName + '-mStats.log'
-  }
   _options.doMemoryStats = true;
   _options.hdInterval = 1000 * 60 * 15;
   this._options = _.assign(_options, options);
+  this._options.logfilename = {
+    'leak': this._options.logfileRoot + this._options.componentName + '-mLeak.log',
+    'stats': this._options.logfileRoot + this._options.componentName + '-mStats.log'
+  }
 }
 
 MemLogger.prototype.init = function() {
