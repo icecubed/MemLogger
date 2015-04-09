@@ -52,8 +52,8 @@ function MemLogger(options) {
   });
   _options.logfileRoot = '/var/log/node/';
   _options.logfilename = {
-    'leak': _options.logfile + options.componentName + '-mLeak.log';
-    'stats': _options.logfile + options.componentName + '-mStats.log';
+    'leak': _options.logfileRoot + options.componentName + '-mLeak.log';
+    'stats': _options.logfileRoot + options.componentName + '-mStats.log';
   }
   _options.doMemoryStats = true;
   _options.hdInterval = 1000 * 60 * 15;
