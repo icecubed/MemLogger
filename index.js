@@ -1,12 +1,12 @@
 var memwatch = require('memwatch');
-var winston = require('winston');
-var _ = require('lodash');
+var winston  = require('winston');
+var _        = require('lodash');
+var heapdump = require('heapdump');
 
 var allocations = {};
 var snoitacolla = {};
 
 function updateHeapDiff(diff, logger) {
-  logger(' >>>>>>>>>> heap diff', diff);
   var oldValue;
   var newValue;
   diff.change.details.forEach(function(data) {
@@ -24,6 +24,7 @@ function updateHeapDiff(diff, logger) {
     if (!snoitacolla[newValue]) snoitacolla[newValue] = [];
     snoitacolla[newValue].push(data.what);
   });
+  logger(' >>>>>>>>>> heap diff', allocations);
 }
 
 function topHeapAllocations(howMany) {
